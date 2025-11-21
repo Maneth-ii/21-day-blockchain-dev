@@ -1,35 +1,42 @@
-# 🚀 Day 02: Simple Wallet Contract (Payable Functions & Transfers)
+# 🚀 Day 02: Simple Storage Contract (State Management & Initial Deployment)
 
 ## 🎯 Day's Goal
 
-The primary objective for Day 02 was to **build a basic contract capable of holding and managing native currency (Ether)**, introducing critical concepts like payable functions, contract ownership, and safe Ether transfer.
+The primary objective for Day 02 was to **implement and manage persistent state within a basic smart contract**, focusing on initializing data via the constructor and allowing external functions to modify and view that data.
 
 ## 🧠 Concepts Covered
 
-* **`pragma solidity ^0.8.0`**: Defining the compiler version.
-* **`payable` Keyword**: Understanding its use on addresses, functions (`receive()` and `constructor`), and the constructor to enable Ether reception.
-* **State Variable (`owner`)**: Storing and initializing the address of the contract deployer (the owner) in the constructor.
-* **`receive() external payable`**: The special function that executes when the contract receives Ether without a function call (plain transaction).
-* **`address(this).balance`**: How to securely check the total native currency balance of the contract itself.
-* **`require()`**: Using checks for security, such as verifying the caller (`msg.sender == owner`) and sufficient balance.
-* **Safe Ether Transfer (`.call{value: _amount}("")`)**: Implementing the modern, low-level method for secure Ether transfer, which is best practice over `.transfer()` or `.send()`.
+* **`pragma solidity ^0.8.19`**: Defining the specific compiler version used.
+* **State Variable (`uint256 public storedData`)**: Understanding how data is stored permanently on the blockchain. The `public` keyword automatically creates a getter function.
+* **`constructor(uint256 _num)`**: The function that runs only once upon deployment, used here to **initialize** the `storedData`.
+* **`setNumber(uint256 _num)`**: A **transaction** function used to modify the contract's state (`storedData`).
+* **`getNumber() public view returns (uint256)`**: A **call** function that reads state but does not cost gas or modify the blockchain, indicated by the `view` keyword.
 
 ## 🛠️ Project Implementation
 
-This folder contains the Truffle project, showcasing the deployment and functionality of the `SimpleWallet` contract.
+This folder contains the Truffle project, focusing on the deployment and functionality of the `SimpleStorage` contract.
 
-### 1. Contract: `contracts/SimpleWallet.sol`
+### 1. Contract: `contracts/SimpleStorage.sol`
 
-* **Purpose**: A basic Ethereum wallet that allows the creator to deposit and later withdraw Ether.
+* **Purpose**: A fundamental contract used to demonstrate reading from and writing to the blockchain state.
 * **Key Functions**:
-    * **`constructor()`**: Sets the deployer as the contract `owner`. Made `payable` to receive an initial deposit on creation.
-    * **`receive()`**: Accepts inbound Ether transactions.
-    * **`getBalance()`**: Returns the contract's current Ether balance.
-    * **`withdraw(uint256 _amount)`**: Allows only the `owner` to send a specified amount of Ether from the contract's balance to their address.
+    * **`constructor()`**: Initializes the `storedData` state variable with a number provided at the time of deployment.
+    * **`setNumber()`**: Updates the `storedData` to a new number.
+    * **`getNumber()`**: Returns the current value of `storedData`.
 
-### 2. Deployment Script: `migrations/2_deploy_wallet.js`
+### 2. Deployment Script: `migrations/2_deploy_simplestorage.js`
 
-* The script deploys the `SimpleWallet` and sends an **initial value of 1 Ether** during deployment to demonstrate the `payable` constructor.
+* **Example Deployment:** The migration script should deploy the contract and pass an initial number (e.g., `100`) to the constructor.
+
+    *Example Migration Script Content:*
+    ```javascript
+    const SimpleStorage = artifacts.require("SimpleStorage");
+
+    module.exports = function (deployer) {
+      // Deploy the SimpleStorage contract and initialize storedData with 100.
+      deployer.deploy(SimpleStorage, 100);
+    };
+    ```
 
 ## 💻 How to Run This Project (Truffle & Ganache)
 
@@ -37,8 +44,3 @@ This folder contains the Truffle project, showcasing the deployment and function
 2.  **Navigate:** `cd Day02`
 3.  **Compile:** `truffle compile`
 4.  **Deploy (Migrate):** `truffle migrate --reset`
-
----
-## ✨ Next Steps (Day 03)
-
-Tomorrow, I will focus on **[Topic for Day 3, e.g., using OpenZeppelin standards, implementing token burning, or writing comprehensive JavaScript tests for this wallet contract]**.
