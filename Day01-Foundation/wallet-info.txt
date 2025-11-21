@@ -1,0 +1,14 @@
+My Wallet Address:
+0x6fc8ab209a6cc73d466e97849bb81eb59a237dba
+
+Network:
+Ethereum Sepolia Testnet
+
+RPC Provider:
+Alchemy / Infura (to be set on Day 4)
+
+What I Learned:
+- What blockchain is
+- How wallets work
+- What private/public keys are
+- Difference between mainnet & testnet
