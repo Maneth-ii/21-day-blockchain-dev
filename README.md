@@ -1,0 +1,30 @@
+# Day 01 — Blockchain Foundations  
+
+## What I Learned  
+- Basics of blockchain architecture  
+- What Ethereum is  
+- How decentralized apps (dApps) work  
+- What a crypto wallet is  
+- Mainnet vs Testnet  
+
+## Tools Installed  
+- Node.js  
+- VS Code  
+- MetaMask  
+
+## Mini Project  
+Created a simple `wallet-info.txt` documenting:  
+- My wallet address  
+- My network (Sepolia)  
+- My RPC provider  
+
+## Key Concepts  
+- Public vs private keys  
+- Gas fees  
+- Blockchain nodes  
+- How transactions are verified  
+
+## Next Steps  
+Tomorrow I write my first Solidity smart contract.  
+
+#21-day-blockchain-dev
