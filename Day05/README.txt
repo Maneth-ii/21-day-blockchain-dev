@@ -1,28 +1,32 @@
-REMIX DEFAULT WORKSPACE
+# Simple Solidity Lottery
 
-Remix default workspace is present when:
-i. Remix loads for the very first time 
-ii. A new workspace is created with 'Default' template
-iii. There are no files existing in the File Explorer
+A fully decentralized, transparent on-chain lottery built with Solidity.
 
-This workspace contains 3 directories:
+Players pay exactly **1 ETH** to enter.  
+When there are **at least 3 players**, the manager can pick a random winner who receives **100% of the contract balance**.
 
-1. 'contracts': Holds three contracts with increasing levels of complexity.
-2. 'scripts': Contains four typescript files to deploy a contract. It is explained below.
-3. 'tests': Contains one Solidity test file for 'Ballot' contract & one JS test file for 'Storage' contract.
+Warning: This is an educational/example contract. It uses `block.difficulty` + `block.timestamp` as a source of randomness which is **not secure** against miner manipulation. For production use, integrate Chainlink VRF or another verifiable randomness solution.
 
-SCRIPTS
+## Features
+- Only 1 ETH entry fee  
+- Manager-only functions protected  
+- View contract balance (manager only)  
+- Simple & clean code – perfect for learning Solidity  
+- Compatible with Solidity 0.7.x – 0.8.x  
 
-The 'scripts' folder has four typescript files which help to deploy the 'Storage' contract using 'web3.js' and 'ethers.js' libraries.
+## How It Works
 
-For the deployment of any other contract, just update the contract name from 'Storage' to the desired contract and provide constructor arguments accordingly 
-in the file `deploy_with_ethers.ts` or  `deploy_with_web3.ts`
+1. Manager deploys the contract
+2. Players call `participate()` and send exactly 1 ETH
+3. Once ≥3 players have entered, manager calls `pickWinner()`
+4. A winner is selected (pseudo-random)
+5. Winner receives the entire contract balance
+6. Contract resets for the next round
 
-In the 'tests' folder there is a script containing Mocha-Chai unit tests for 'Storage' contract.
+## Functions
 
-To run a script, right click on file name in the file explorer and click 'Run'. Remember, Solidity file must already be compiled.
-Output from script will appear in remix terminal.
-
-Please note, require/import is supported in a limited manner for Remix supported modules.
-For now, modules supported by Remix are ethers, web3, swarmgw, chai, multihashes, remix and hardhat only for hardhat.ethers object/plugin.
-For unsupported modules, an error like this will be thrown: '<module_name> module require is not supported by Remix IDE' will be shown.
+| Function         | Description                       | Access         |
+|------------------|-----------------------------------|----------------|
+| `participate()`  | Enter lottery (send 1 ETH)        | Public         |
+| `getBalance()`   | View contract balance             | Manager only   |
+| `pickWinner()`   | Pick winner & send prize          | Manager only   |
