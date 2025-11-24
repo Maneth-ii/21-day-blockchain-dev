@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day 4 To-Do DApp</title>
+</head>
+<body>
+    <h1>To-Do List DApp (Sepolia)</h1>
+    <p>Connected Account: <span id="account-address">Not Connected</span></p>
+
+    <form onsubmit="App.createTask(event)">
+        <input type="text" id="newTask" placeholder="Add a new task..." required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul id="taskList">
+        </ul>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
